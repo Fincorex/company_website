@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export default function Navbar() {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isCompanyOpen, setIsCompanyOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const products = [
     {
@@ -64,10 +65,10 @@ export default function Navbar() {
                 </Link>
               </div>
               <div
-                className="nav-collapse grow hidden w-full lg:flex lg:w-full flex-auto justify-center"
+                className={`nav-collapse grow w-full lg:flex lg:w-full flex-auto justify-center ${isMobileMenuOpen ? 'max-lg:block max-lg:absolute max-lg:top-[100%] max-lg:left-0 max-lg:bg-white max-lg:w-full max-lg:shadow-lg max-lg:rounded-b-2xl border-t border-neutral-100 max-lg:max-h-[80vh] max-lg:overflow-y-auto' : 'hidden'}`}
                 id="main-navbar-collapse"
               >
-                <div className="justify-center flex flex-col lg:flex-row p-0 lg:bg-neutral-200 lg:rounded-full">
+                <div className="justify-center flex flex-col lg:flex-row p-4 lg:p-0 lg:bg-neutral-200 lg:rounded-full max-lg:bg-white">
                   <div 
                     className={`btn-group group ${isProductsOpen ? 'drp-show' : ''}`}
                     onMouseEnter={() => setIsProductsOpen(true)}
@@ -84,7 +85,7 @@ export default function Navbar() {
                       <i className={`ti ti-chevron-down ml-1 transition-transform duration-200 ${isProductsOpen ? 'rotate-180' : ''}`}></i>
                     </button>
                     <div 
-                      className={`dropdown-menu dropdown-center group-[.drp-show]:max-lg:!relative !w-[700px] max-lg:!w-full max-lg:!transform-none !p-0 overflow-hidden shadow-2xl transition-all duration-300 ${isProductsOpen ? 'show opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}`}
+                      className={`dropdown-menu dropdown-center group-[.drp-show]:max-lg:!relative !w-[700px] max-lg:!w-full max-lg:!transform-none !p-0 overflow-hidden lg:shadow-2xl transition-all duration-300 ${isProductsOpen ? 'show opacity-100 translate-y-0 max-lg:block' : 'opacity-0 -translate-y-2 pointer-events-none max-lg:hidden'}`}
                     >
                       <div className="p-4 h-auto overflow-auto bg-white">
                         <div className="grid grid-cols-12 gap-4">
@@ -158,7 +159,7 @@ export default function Navbar() {
                       <i className={`ti ti-chevron-down ml-1 transition-transform duration-200 ${isCompanyOpen ? 'rotate-180' : ''}`}></i>
                     </button>
                     <div 
-                      className={`dropdown-menu dropdown-menu-end group-[.drp-show]:max-lg:!relative !w-[600px] max-lg:!w-full max-lg:!transform-none !p-0 overflow-hidden shadow-2xl transition-all duration-300 ${isCompanyOpen ? 'show opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}`}
+                      className={`dropdown-menu dropdown-menu-end group-[.drp-show]:max-lg:!relative !w-[600px] max-lg:!w-full max-lg:!transform-none !p-0 overflow-hidden lg:shadow-2xl transition-all duration-300 ${isCompanyOpen ? 'show opacity-100 translate-y-0 max-lg:block' : 'opacity-0 -translate-y-2 pointer-events-none max-lg:hidden'}`}
                     >
                       <div className="p-4 h-auto overflow-auto bg-white">
                         <div className="grid grid-cols-12 gap-4">
@@ -247,12 +248,11 @@ export default function Navbar() {
                 Request Demo
               </a>
               <button
-                data-pc-toggle="nav-collapse"
                 type="button"
-                data-pc-target="#main-navbar-collapse"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="inline-flex items-center p-2 w-10 h-10 justify-center text-neutral-900 rounded-full lg:hidden hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-200"
               >
-                <i className="ti ti-menu-2 text-2xl leading-none"></i>
+                <i className={`ti ${isMobileMenuOpen ? 'ti-x' : 'ti-menu-2'} text-2xl leading-none`}></i>
               </button>
             </div>
           </div>
