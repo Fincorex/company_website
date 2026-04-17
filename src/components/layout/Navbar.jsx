@@ -1,107 +1,126 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
+  const [isCompanyOpen, setIsCompanyOpen] = useState(false);
+  
+  const products = [
+    {
+      name: "Corepoint",
+      fullName: "Corepoint (Core Banking)",
+      desc: "Core banking engine for accounts, loans, and ledger",
+      path: "/products/corepoint",
+      icon: "ti-building-bank"
+    },
+    {
+      name: "CashRecova",
+      fullName: "CashRecova (Payments)",
+      desc: "Automated direct debit & recurring collections",
+      path: "/products/cashrecova",
+      icon: "ti-refresh"
+    },
+    {
+      name: "Zebra",
+      fullName: "Zebra (Cards)",
+      desc: "Card issuing & processing infrastructure",
+      path: "/products/zebra",
+      icon: "ti-credit-card"
+    },
+    {
+      name: "Agentix",
+      fullName: "Agentix (Agency Banking)",
+      desc: "Agent network & agency banking platform",
+      path: "/products/agentix",
+      icon: "ti-users-group"
+    }
+  ];
+
+  const companyLinks = [
+    {
+      name: "About Fincorex",
+      desc: "Learn about our mission, vision, and infrastructure",
+      path: "/company/about",
+      icon: "ti-info-circle"
+    },
+
+    {
+      name: "Teams",
+      desc: "Meet the people behind Fincorex",
+      path: "#",
+      icon: "ti-users"
+    }
+  ];
+
   return (
     <>
-      <nav className="z-50 w-full relative bg-neutral-200">
+      <nav className="z-50 w-full relative bg-neutral-200 fixed top-0">
         <div className="container">
           <div className="static flex py-4 items-center justify-between">
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-between">
               <div className="flex flex-1 flex-shrink-0 items-center justify-between text-primary-500">
-                <a href="/" className="flex items-center gap-2 no-underline">
+                <Link to="/" className="flex items-center gap-2 no-underline">
                   <span className="text-2xl font-bold text-primary-500 tracking-tight">Fincorex</span>
-                </a>
+                </Link>
               </div>
               <div
                 className="nav-collapse grow hidden w-full lg:flex lg:w-full flex-auto justify-center"
                 id="main-navbar-collapse"
               >
                 <div className="justify-center flex flex-col lg:flex-row p-0 lg:bg-neutral-200 lg:rounded-full">
-                  <div className={`btn-group group ${isProductsOpen ? 'drp-show' : ''}`}>
+                  <div 
+                    className={`btn-group group ${isProductsOpen ? 'drp-show' : ''}`}
+                    onMouseEnter={() => setIsProductsOpen(true)}
+                    onMouseLeave={() => setIsProductsOpen(false)}
+                  >
                     <button
                       className="inline-flex text-neutral-900 hover:bg-primary-500/[.04] rounded-full px-[18px] py-3 text-[14px] font-medium transition-all leading-[1.429] dropdown-toggle arrow-none ltr:text-left rtl:text-right max-lg:w-full justify-between items-center"
                       type="button"
                       aria-haspopup="true"
                       aria-expanded={isProductsOpen}
                       onClick={() => setIsProductsOpen(!isProductsOpen)}
-                      onMouseEnter={() => setIsProductsOpen(true)}
                     >
                       Products
-                      <i className="ti ti-chevron-down ml-1"></i>
+                      <i className={`ti ti-chevron-down ml-1 transition-transform duration-200 ${isProductsOpen ? 'rotate-180' : ''}`}></i>
                     </button>
                     <div 
-                      className={`dropdown-menu dropdown-center group-[.drp-show]:max-lg:!relative !w-[936px] max-lg:!w-full max-lg:!transform-none !p-0 overflow-hidden shadow-[0px_0px_2px_0px_rgba(0,0,0,0.2),_rgba(26,28,30,0.06)_0px_16px_10px_0px] ${isProductsOpen ? 'show' : ''}`}
-                      onMouseLeave={() => setIsProductsOpen(false)}
+                      className={`dropdown-menu dropdown-center group-[.drp-show]:max-lg:!relative !w-[700px] max-lg:!w-full max-lg:!transform-none !p-0 overflow-hidden shadow-2xl transition-all duration-300 ${isProductsOpen ? 'show opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}`}
                     >
-                      <div className="p-2 h-auto overflow-auto">
-                        <div className="grid grid-cols-12 gap-2">
-                          <div className="col-span-12 sm:col-span-6 lg:col-span-3">
-                            <a href="#" className="group/landinglinks block">
-                              <div className="p-4 rounded-xl overflow-hidden hover:bg-neutral-50 transition-all duration-300">
-                                <div className="flex flex-col gap-2">
-                                  <div className="flex items-center gap-2">
-                                    <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center text-primary-500">
-                                      <i className="ti ti-building-bank text-2xl"></i>
-                                    </div>
-                                    <h6 className="subtitle1 text-theme-text-primary">Fincorex CBA</h6>
+                      <div className="p-4 h-auto overflow-auto bg-white">
+                        <div className="grid grid-cols-12 gap-4">
+                          {products.map((product, idx) => (
+                            <div key={idx} className="col-span-12 sm:col-span-6">
+                              <Link 
+                                to={product.path} 
+                                className="group/nav-item block p-4 rounded-xl hover:bg-neutral-50 border border-transparent hover:border-neutral-100 transition-all duration-300"
+                                onClick={() => setIsProductsOpen(false)}
+                              >
+                                <div className="flex items-start gap-4">
+                                  <div className="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center text-primary-500 group-hover/nav-item:scale-110 transition-transform">
+                                    <i className={`ti ${product.icon} text-2xl`}></i>
                                   </div>
-                                  <p className="body2 text-theme-text-secondary">Core banking engine for accounts, loans, and ledger</p>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="col-span-12 sm:col-span-6 lg:col-span-3">
-                            <a href="#" className="group/landinglinks block">
-                              <div className="p-4 rounded-xl overflow-hidden hover:bg-neutral-50 transition-all duration-300">
-                                <div className="flex flex-col gap-2">
-                                  <div className="flex items-center gap-2">
-                                    <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center text-primary-500">
-                                      <i className="ti ti-refresh text-2xl"></i>
-                                    </div>
-                                    <h6 className="subtitle1 text-theme-text-primary">CashRecova</h6>
+                                  <div className="flex flex-col">
+                                    <h6 className="subtitle1 font-bold text-theme-text-primary group-hover/nav-item:text-primary-500 transition-colors">
+                                      {product.fullName}
+                                    </h6>
+                                    <p className="body2 text-theme-text-secondary leading-snug">
+                                      {product.desc}
+                                    </p>
                                   </div>
-                                  <p className="body2 text-theme-text-secondary">Automated direct debit & recurring collections</p>
                                 </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="col-span-12 sm:col-span-6 lg:col-span-3">
-                            <a href="#" className="group/landinglinks block">
-                              <div className="p-4 rounded-xl overflow-hidden hover:bg-neutral-50 transition-all duration-300">
-                                <div className="flex flex-col gap-2">
-                                  <div className="flex items-center gap-2">
-                                    <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center text-primary-500">
-                                      <i className="ti ti-credit-card text-2xl"></i>
-                                    </div>
-                                    <h6 className="subtitle1 text-theme-text-primary">Zebra</h6>
-                                  </div>
-                                  <p className="body2 text-theme-text-secondary">Card issuing & processing infrastructure</p>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="col-span-12 sm:col-span-6 lg:col-span-3">
-                            <a href="#" className="group/landinglinks block">
-                              <div className="p-4 rounded-xl overflow-hidden hover:bg-neutral-50 transition-all duration-300">
-                                <div className="flex flex-col gap-2">
-                                  <div className="flex items-center gap-2">
-                                    <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center text-primary-500">
-                                      <i className="ti ti-users-group text-2xl"></i>
-                                    </div>
-                                    <h6 className="subtitle1 text-theme-text-primary">Agentix</h6>
-                                  </div>
-                                  <p className="body2 text-theme-text-secondary">Agency banking & agent network platform</p>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
+                              </Link>
+                            </div>
+                          ))}
                         </div>
                       </div>
-                      <div className="p-4 bg-neutral-100 border-t border-theme-divider">
-                        <a href="#" className="flex items-center justify-center gap-2 text-primary-500 font-medium hover:gap-3 transition-all">
+                      <div className="p-4 bg-neutral-50 border-t border-neutral-100">
+                        <Link 
+                          to="/products" 
+                          className="flex items-center justify-center gap-2 text-primary-500 font-bold hover:gap-3 transition-all"
+                          onClick={() => setIsProductsOpen(false)}
+                        >
                           View All Products <i className="ti ti-arrow-right"></i>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -115,20 +134,61 @@ export default function Navbar() {
                     href="#"
                     className="inline-block text-neutral-900 hover:bg-primary-500/[.04] rounded-full px-[18px] lg:px-6 py-3 text-[14px] font-medium transition-all leading-[1.429]"
                   >
-                    Case Studies
-                  </a>
-                  <a
-                    href="#"
-                    className="inline-block text-neutral-900 hover:bg-primary-500/[.04] rounded-full px-[18px] lg:px-6 py-3 text-[14px] font-medium transition-all leading-[1.429]"
-                  >
                     Technology
                   </a>
-                  <a
-                    href="#"
+                  <Link
+                    to="/company/case-studies"
                     className="inline-block text-neutral-900 hover:bg-primary-500/[.04] rounded-full px-[18px] lg:px-6 py-3 text-[14px] font-medium transition-all leading-[1.429]"
                   >
-                    Company
-                  </a>
+                    Case Studies
+                  </Link>
+                  <div 
+                    className={`btn-group group ${isCompanyOpen ? 'drp-show' : ''}`}
+                    onMouseEnter={() => setIsCompanyOpen(true)}
+                    onMouseLeave={() => setIsCompanyOpen(false)}
+                  >
+                    <button
+                      className="inline-flex text-neutral-900 hover:bg-primary-500/[.04] rounded-full px-[18px] lg:px-6 py-3 text-[14px] font-medium transition-all leading-[1.429] dropdown-toggle arrow-none ltr:text-left rtl:text-right max-lg:w-full justify-between items-center"
+                      type="button"
+                      aria-haspopup="true"
+                      aria-expanded={isCompanyOpen}
+                      onClick={() => setIsCompanyOpen(!isCompanyOpen)}
+                    >
+                      Company
+                      <i className={`ti ti-chevron-down ml-1 transition-transform duration-200 ${isCompanyOpen ? 'rotate-180' : ''}`}></i>
+                    </button>
+                    <div 
+                      className={`dropdown-menu dropdown-menu-end group-[.drp-show]:max-lg:!relative !w-[600px] max-lg:!w-full max-lg:!transform-none !p-0 overflow-hidden shadow-2xl transition-all duration-300 ${isCompanyOpen ? 'show opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}`}
+                    >
+                      <div className="p-4 h-auto overflow-auto bg-white">
+                        <div className="grid grid-cols-12 gap-4">
+                          {companyLinks.map((link, idx) => (
+                            <div key={idx} className="col-span-12 sm:col-span-6">
+                              <Link 
+                                to={link.path} 
+                                className="group/nav-item block p-4 rounded-xl hover:bg-neutral-50 border border-transparent hover:border-neutral-100 transition-all duration-300"
+                                onClick={() => setIsCompanyOpen(false)}
+                              >
+                                <div className="flex items-start gap-4">
+                                  <div className="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center text-primary-500 group-hover/nav-item:scale-110 transition-transform">
+                                    <i className={`ti ${link.icon} text-2xl`}></i>
+                                  </div>
+                                  <div className="flex flex-col">
+                                    <h6 className="subtitle1 font-bold text-theme-text-primary group-hover/nav-item:text-primary-500 transition-colors">
+                                      {link.name}
+                                    </h6>
+                                    <p className="body2 text-theme-text-secondary leading-snug">
+                                      {link.desc}
+                                    </p>
+                                  </div>
+                                </div>
+                              </Link>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

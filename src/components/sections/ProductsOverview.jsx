@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const fadeInUp = {
@@ -8,24 +8,28 @@ const fadeInUp = {
 
 const products = [
   {
-    title: "Fincorex CBA",
+    id: "corepoint",
+    title: "Corepoint",
     desc: "Core banking engine for accounts, loans, and ledger. The heart of your financial operations.",
     icon: "ti-database-cog",
     color: "bg-blue-50 text-blue-600 border-blue-100"
   },
   {
+    id: "cashrecova",
     title: "CashRecova",
     desc: "Automated direct debit & recurring collections. Streamline your revenue recovery.",
-    icon: "ti-receipt-refund",
+    icon: "ti-refresh",
     color: "bg-emerald-50 text-emerald-600 border-emerald-100"
   },
   {
+    id: "zebra",
     title: "Zebra",
     desc: "Card issuing & processing infrastructure. Ship physical and virtual cards in weeks, not months.",
     icon: "ti-credit-card",
     color: "bg-purple-50 text-purple-600 border-purple-100"
   },
   {
+    id: "agentix",
     title: "Agentix",
     desc: "Agency banking & agent network platform. Extend your reach with powerful agent management.",
     icon: "ti-users-group",
@@ -84,9 +88,9 @@ export default function ProductsOverview() {
                   {product.desc}
                 </p>
                 <div className="mt-auto">
-                  <a href="#" className="inline-flex items-center gap-2 text-primary-500 font-semibold group-hover:gap-3 transition-all">
+                  <Link to={`/products/${product.id}`} className="inline-flex items-center gap-2 text-primary-500 font-semibold group-hover:gap-3 transition-all">
                     Learn More <i className="ti ti-arrow-right leading-none"></i>
-                  </a>
+                  </Link>
                 </div>
               </motion.div>
             </div>
@@ -103,9 +107,9 @@ export default function ProductsOverview() {
           <p className="body1 text-theme-text-secondary mb-6 italic">
             "Fincorex handles the complexity of core systems so you can focus on building amazing customer experiences."
           </p>
-          <button className="btn btn-outline-primary px-8">
+          <Link to="/products" className="btn btn-outline-primary px-8 inline-block">
             View All Infrastructure Solutions
-          </button>
+          </Link>
         </motion.div>
       </div>
     </section>

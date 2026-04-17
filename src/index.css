@@ -10,3 +10,21 @@
     scroll-behavior: smooth;
   }
 }
+
+@utility pattern {
+  background-color: var(--color-brand-dark);
+  background-image:
+    repeating-linear-gradient(22.5deg, transparent, transparent 2px, color-mix(in srgb, var(--color-primary-500) 6%, transparent) 7px, color-mix(in srgb, var(--color-primary-500) 6%, transparent) 10px, transparent 3px, transparent 10px),
+    repeating-linear-gradient(67.5deg, transparent, transparent 2px, color-mix(in srgb, var(--color-primary-500) 5%, transparent) 7px, color-mix(in srgb, var(--color-primary-500) 5%, transparent) 10px, transparent 3px, transparent 10px),
+    repeating-linear-gradient(112.5deg, transparent, transparent 2px, color-mix(in srgb, var(--color-primary-500) 4%, transparent) 7px, color-mix(in srgb, var(--color-primary-500) 4%, transparent) 10px, transparent 3px, transparent 10px),
+    repeating-linear-gradient(157.5deg, transparent, transparent 2px, color-mix(in srgb, var(--color-primary-500) 3%, transparent) 7px, color-mix(in srgb, var(--color-primary-500) 3%, transparent) 10px, transparent 3px, transparent 10px);
+  background-position: 0 0;
+}
+
+@utility pattern-grid {
+  background-color: var(--color-brand-dark);
+  background-image: 
+    linear-gradient(color-mix(in srgb, var(--color-primary-500) 10%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-primary-500) 10%, transparent) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
