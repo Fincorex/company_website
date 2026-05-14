@@ -11,6 +11,10 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': '/src',
+      '@shared': '/src/shared',
+      '@modules': '/src/modules',
+      '@marketing': '/src/modules/marketing',
+      '@config': '/src/config',
     },
   },
 });
